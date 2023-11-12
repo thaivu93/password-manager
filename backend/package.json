@@ -1,0 +1,20 @@
+{
+  "name": "pass-man-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/http-server": "^0.12.4",
+    "@types/pug": "^2.0.9",
+    "fs": "^0.0.1-security",
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.1",
+    "pg": "^8.11.3",
+    "pug": "^3.0.2"
+  }
+}
