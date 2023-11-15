@@ -4,6 +4,8 @@ import crypto from 'crypto';
 import querystring from 'querystring';
 import { client } from './config/database';
 
+import { login } from './api/login';
+
 const PORT: number = 3000;
 
 const server = http.createServer((req, res) => {
@@ -30,11 +32,18 @@ const server = http.createServer((req, res) => {
         }
         case '/logout': {
         }
-        case '/resigster': {
-        }
+
         case '/resigster': {
         }
 
+        case '/password/add': {
+        }
+
+        case '/password/delete': {
+        }
+
+        case '/passwords': {
+        }
         default: {
             res.writeHead(200, { 'Content-type': 'application.json' });
             res.end('Default entry');
