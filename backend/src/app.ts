@@ -3,14 +3,14 @@ import http from 'http';
 import url from 'url';
 import crypto from 'crypto';
 import querystring from 'querystring';
-import { client } from './config/database';
+import { Client } from 'pg';
 
-import { login } from './api/login';
-import { getPasswordData } from './api/passwords';
+import { config } from './config/database';
+import { getDataPassword } from './db_query/getData';
 
 const PORT: number = 3000;
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
     const pathUrl = url.parse(req.url || '', true);
     const path = pathUrl.path;
     const queryParams = pathUrl.query;
@@ -19,6 +19,7 @@ const server = http.createServer((req, res) => {
         // Handle login and create session
         case '/login': {
             if (req.method === 'POST') {
+                const client = new Client(config);
                 try {
                     client.connect();
                 } catch (error) {
@@ -27,26 +28,20 @@ const server = http.createServer((req, res) => {
                 } finally {
                     client.end();
                 }
+                break;
             } else {
                 res.writeHead(405, { 'Content-type': 'application/json' });
                 res.end(JSON.stringify({ message: 'Invalid request' }));
+                break;
             }
-        }
-        case '/logout': {
-        }
-
-        case '/resigster': {
-        }
-
-        case '/password/add': {
-        }
-
-        case '/password/delete': {
         }
 
         case '/passwords': {
             if (req.method === 'GET') {
-                const data = getPasswordData(1, client);
+                const client = new Client(config);
+                const data = await getDataPassword(1, client);
+                console.log(client);
+                console.log(data);
                 const returnData = JSON.stringify(data);
 
                 // set cors header to allow cors
@@ -54,17 +49,16 @@ const server = http.createServer((req, res) => {
                 res.setHeader('Access-Control-Allow-Methods', 'Get');
                 res.writeHead(200, { 'Content-type': 'application/json' });
                 res.end(returnData);
+                break;
             }
         }
 
         default: {
             res.writeHead(200, { 'Content-type': 'application.json' });
             res.end('Default entry');
+            break;
         }
     }
-
-    res.writeHead(200, { 'Content-type': 'text/plain' });
-    res.end('End here');
 });
 
 function errorOnConnection(err: NodeJS.ErrnoException | null) {
