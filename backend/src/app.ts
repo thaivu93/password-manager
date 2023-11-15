@@ -5,6 +5,7 @@ import querystring from 'querystring';
 import { client } from './config/database';
 
 import { login } from './api/login';
+import { getPasswordData } from './api/passwords';
 
 const PORT: number = 3000;
 
@@ -43,7 +44,18 @@ const server = http.createServer((req, res) => {
         }
 
         case '/passwords': {
+            if (req.method === 'GET') {
+                const data = getPasswordData(1, client);
+                const returnData = JSON.stringify(data);
+
+                // set cors header to allow cors
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                res.setHeader('Access-Control-Allow-Methods', 'Get');
+                res.writeHead(200, { 'Content-type': 'application/json' });
+                res.end(returnData);
+            }
         }
+
         default: {
             res.writeHead(200, { 'Content-type': 'application.json' });
             res.end('Default entry');
