@@ -16,5 +16,8 @@
     "nodemon": "^3.0.1",
     "pg": "^8.11.3",
     "pug": "^3.0.2"
+  },
+  "dependencies": {
+    "@types/node": "^20.9.0"
   }
 }

@@ -13,13 +13,19 @@ git clone https://github.com/thaivu93/password-manager.git
 cd password-manager
 ```
 
-2. Install depencies
+2. Install dependencies
+
+-   **Backend**
 
 ```bash
 # Backend
 cd backend
 npm install
+```
 
+-   **Front end**
+
+```bash
 # Frontend
 cd frontend
 npm install
