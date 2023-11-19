@@ -24,7 +24,7 @@ const getDataPassword = (user_id, client) => __awaiter(void 0, void 0, void 0, f
         console.error(`Error: ${error}`);
     }
     finally {
-        client.end();
+        yield client.end();
     }
     return;
 });
